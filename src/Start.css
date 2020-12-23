@@ -1,0 +1,22 @@
+#nav{
+    display:flex;
+    background-color: #008b8b;
+   
+}
+#list{
+    display: flex;
+    margin-left: 60%;
+}
+#list-item{
+    display: inline;
+    margin-right: 40px;
+    border-radius: 10px;
+}
+#link{
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: medium;
+    font-style: italic;
+    padding: 10px;
+    text-decoration: none;
+    color: #000;
+}

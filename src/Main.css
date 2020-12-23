@@ -1,0 +1,50 @@
+#main{
+    display:flex;
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%;
+    background-image: url("https://img1.goodfon.com/wallpaper/nbig/c/fb/sorevnovaniya-sobachi-bega.jpg");
+    align-items: justify;
+    justify-content: center;
+    padding-top: 150px;
+    padding-bottom: 140px;
+}
+
+#signup{
+    background-color: rgba(0,0,0,.75);
+    display:inline;
+    box-shadow: 0 2px 8px 0 rgba(105, 158, 35, 0.08);
+    padding: 40px;
+    margin-right: 10px;
+    text-align: center;
+    color: antiquewhite;
+    height: fit-content;
+    width: 400px;
+    border-radius: 5px;
+}
+
+#nav{
+    background-color: aqua;
+    border-radius: 50px;
+}
+#list{
+    display:inline-block;
+    height: 25px;
+    width: fit-content;
+    text-align: justify;
+}
+#list-item{
+    display:inline-block;
+    width: fit-content;
+    margin-right: 50px;
+    padding: 4px;
+    border-radius: 20px;
+    
+}
+#link{
+    display: inline-block;
+    text-decoration: none;
+    border-radius: 20px;
+    height: 30px;
+    width: fit-content;
+}
