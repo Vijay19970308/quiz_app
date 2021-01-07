@@ -8,6 +8,6 @@ mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
     .catch(err => {
         console.log("error while connection", err)
     }); 
-let userModel = mongoose.model('UserCollection',userSchema);
+let userModel = mongoose.model('UserData',userSchema);
 
 exports.userModel = userModel; 

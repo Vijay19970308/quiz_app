@@ -7,12 +7,14 @@
     background-image: url(./JEu7V0.jpg);
     font: 90%/1.45em "Helvetica Neue",HelveticaNeue,Helvetica,Arial,sans-serif !important; 
 }
+
 table{
     margin-top: 10%;
     color: ivory;
     background-color: rgb(20, 18, 17);
     opacity: 80%;
     margin-bottom: 17%;
+    height: 450px;
 }
 th{
     border: solid 1px ivory;
@@ -25,7 +27,7 @@ td{
     padding: 1.5%;
     width: max-content;
 }
-#button{
+.button{
     background: #e50914;
     border-radius: 20px;
     height: 40px;

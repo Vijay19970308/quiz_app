@@ -1,25 +1,43 @@
-import React from 'react';
+import React, { useState , useEffect } from 'react';
 import './Login.css';
-function SignUp(){
+
+export default function SignUp(props){
+   const [username,setUsername] = useState("");
+   const [password,setPassword] = useState("");
+   const [phone,setPhone]=useState("");
+   const [Error,setError]=useState("");
+   const [Disable,setDisable]=useState(false);
+
  return(
          <>
-               <h2>Create Your account</h2>
-                  <div id="input">
-                     <input id="inputTag" type="text" placeholder="Choose your username"></input><br></br>
+               <h2>Create your account</h2>
+                  <div className="input">
+                     <input id="Username" value={username} className="inputTag" type="text" onChange={(event)=>{setUsername(event.target.value)}} placeholder="Choose your username"></input><br></br>
                   </div>
-                  <div id="input">
-                     <input id="inputTag" type="password" placeholder="Choose your password"></input>
+                  <div className="input">
+                     <input id="password" value={password} className="inputTag" type="password" onChange={(event)=>{setPassword(event.target.value)}} placeholder="Choose your password"></input>
                   </div>
-                  <div id="input">
-                     <input id="inputTag" type="password" placeholder="Re-Enter your password"></input>
+                  <div className="input">
+                     <input id="repassword" className="inputTag" type="password" onChange={(event)=>{
+                        if(event.target.value!==password){
+                           setError("Password do not matched!!");
+                        }
+                        else{
+                           setError("");
+                        }
+                        if(Error!=="")
+                          setDisable(false);
+                        else
+                          setDisable(true);
+                        }} placeholder="Re-Enter your password"></input>
                   </div>
-                  <div id="input">
-                  <h3 style={{ display:"inline" ,color:'cyan'}}>+91</h3> <input id="inputTag" type="phone" placeholder="Enter your Phone Number"></input>
+                  <div className="input">
+                  <input value={phone} onChange={(event)=>{setPhone(event.target.value)}} id="SignButton" className="inputTag" type="phone" placeholder="Enter your Phone Number"></input>
                   </div>
-                  <button id="button" type="button" >Create Account</button>
+                  <p id="error">{Error}</p>
+                  <button id="SignButton"  disabled={Disable} className="button" onClick={()=>{props.signUpHandler(username,password,phone)}} type="button" >Create Account</button>
                   
             </>
         )
-}
-
-export default SignUp;
+                     }
+ 

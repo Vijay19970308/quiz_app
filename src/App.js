@@ -1,5 +1,7 @@
 import Header from './Header';
-import Start from './Start';
+//import Start from './Start';
+//import QuizPage from './QuizPage';
+import Main from './Main';
 import Footer from './Footer';
 
 
@@ -7,7 +9,7 @@ function App() {
   return (
     <div>
         <Header/>
-        <Start/>
+        <Main/>
         <Footer/>
     </div>
   );
