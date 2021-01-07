@@ -60,7 +60,7 @@ function Reports(props)
       }).then((r)=>{
       setTabs(r.result);  
       });}
-if(questions.length!==0)
+if(questions.length!=0)
 {
    return (<QuizPage questions={questions}/>);
 }
