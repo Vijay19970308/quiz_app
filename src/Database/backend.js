@@ -10,6 +10,7 @@ const cors = require('cors');
 const {Questions} = require('./Questions');
 const {timerModel} = require('./TimerModel');
 const {userModel} = require("./UserModel");
+const {userDetailsModel} = require("./userDetailsModel");
 const {Data} = require('./Data');
 const port = 9000;
 
@@ -105,9 +106,18 @@ app.post('/signIn', async(req,resp)=>{
     newModel.username=req.body.username;
     newModel.password=req.body.password;
     newModel.Phone = Number(req.body.cell);
+    const userDetail = new userDetailsModel();
+    userDetail.username = req.body.username;
+    userDetail.lastQuiz = "";
+    userDetail.topQuiz =0;
+    userDetail.picture="";
+    userDetail.achievement="";
+    userDetail.level="Beginnner";
     try{
         await newModel.save();
-        resp.send(newModel);
+        await userDetail.save();
+        console.log(userDetail);
+        resp.status(201).send(newModel);
     }catch(e)
     {
         console.log(e.message);
@@ -244,8 +254,36 @@ app.put("/updatePhN",async (req,resp)=>{
 app.post("/AllTimers", async(req,resp)=>{
     try
     {
-      const result = await timerModel.find({username:req.body.username});
-      resp.send({result:result});
+      if(Check(req.body.username))
+      {
+        resp.status(404).send({message:"Username not found!!!"});
+      }
+      else{
+        const result = await timerModel.find({username:req.body.username});
+        resp.send({result:result});
+      }
+    }catch(e)
+    {
+      resp.status(404).send({message:e.message});
+    }
+})
+
+app.put("/UpdateTimer", async(req,resp)=>{
+  try
+    {
+      if(Check(req.body._id))
+      {
+        resp.status(404).send({message:"Quiz not found!!!"});
+      }
+      else{
+        const result = await timerModel.findOneAndUpdate({_id:req.body._id},{score:req.body.score},{useFindAndModify:false,new:true});
+        if(result!=null)
+        {
+        resp.status(201).send({message:"Submitted!!!"});
+        }else{
+          resp.status(404).send({message:"Quiz not found"});
+        }
+      }
     }catch(e)
     {
       resp.status(404).send({message:e.message});
@@ -293,6 +331,7 @@ app.post("/AddTimer", async(req,resp)=>{
         Timer.timeTotal = Number(req.body.timeTotal);
         Timer.level = Number(req.body.level);
         Timer.startTime = req.body.startTime; 
+        Timer.score=-1;
            await Timer.save();
            resp.sendStatus(200);
       }
@@ -303,6 +342,31 @@ app.post("/AddTimer", async(req,resp)=>{
  
 });
 
+app.delete("/DeleteTimer",async(req,res)=>{
+   if(Check(req.body.id))
+   {
+     res.status(404).send({message:"Quiz is not defined"});
+   }
+   else
+   {
+     try{
+       
+          const requestedId =req.body.id;
+          const result=await timerModel.findOneAndRemove({_id:requestedId},{useFindAndModify:false,new:true});
+          if(result===null)
+          {
+             res.status(404).send({message:"Quiz is not found"});
+          }
+          else{
+          res.status(201);
+          }
+     }catch(e){
+      console.log(e.message);
+       res.status(404).send({message:e.message});
+     }
+   }
+   
+});
 //get Questions
 app.post("/fetchQuestion",async(req,resp)=>{
   const type = req.body.type;
@@ -312,12 +376,11 @@ app.post("/fetchQuestion",async(req,resp)=>{
   //const startTime = Date(req.headers.startTime);
    try
    {
-    console.log(type+req.body.number+""+level);
+    //console.log(type+req.body.number+""+level);
      //const result = await Questions.find().aggregate([
      //  {$match:{questionType:type,questionLevel:level}},
      //  { $limit: number }
      //]) 
-     console.log(Questions);
      resp.status(200).send({result:Questions});
    }
    catch(e)
@@ -326,5 +389,23 @@ app.post("/fetchQuestion",async(req,resp)=>{
    }
 })
 
+app.post("/getUserDetails", async(req,res)=>{
+   if(Check(req.body.username))
+   {
+     res.status(404).send({message:"user could not found!!!"});
+   }
+   else
+   {
+     const result = await userDetailsModel.findOne({username:req.body.username});
+     if(result===null)
+     {
+      res.status(404).send({message:"user could not found!!!"});
+     }
+     else
+     {
+       res.status(201).send({result:result});
+     }
+   }
+});
 app.listen(port, () => console.log(`App listening on port ${port}!`));
 module.exports = app; 

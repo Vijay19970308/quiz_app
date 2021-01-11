@@ -8,7 +8,8 @@ const mongoose = require('mongoose');
         number:  Number,
         timeTotal: Number,
         level: Number,
-        startTime:String
+        startTime:String,
+        score:Number
     })
 
 //export it for using in other files

@@ -1,4 +1,4 @@
-#Section{
+.Section{
     background-image: url(./Quiz.jpg);
     background-attachment: fixed;
     background-repeat: no-repeat;
@@ -8,7 +8,8 @@
     color: aqua;
     height: 680px;
 }
-#Question{
+
+.Question{
     display: inline-block;
     width: 90%;
     height: 55%;
@@ -17,17 +18,20 @@
     border: 1px solid aqua;
     border-radius: 10px;
 }
-#task{
+
+.task{
     display: inline-flex;
     width: 80%;
     background-color: rgba(27, 26, 26, 0.75);
 }
-#taskId{
+
+.taskId{
     display: flex;
     width:30%;
     margin-left: 55px;
 }
-#Description{
+
+.Description{
     display: flex;
     width: 90%;
     justify-content: center;
@@ -37,19 +41,22 @@
     border-radius: 5px;
     border: 1px solid aqua;
 }
-#Options{
+
+.Options{
     display: flex;
     width: 90%;
     justify-content: center;
     margin-left: 5%;
     height: 10%;
 }
-#two{
+
+.two{
     display: block;
     width: 100%;
     height: 100%;
 }
-#Option{
+
+.Option{
     display:block;
     justify-content: center;
     margin: 2%;
@@ -59,13 +66,14 @@
     border: 1px solid aqua;
    
 }
-#buttons{
+
+.buttons{
     display:flexbox;
     width: 90%;
     margin: 4%;
     background-color: aquamarine;
 }
-#prev{
+.prev{
     display: inline;
     float: left;
     margin: 2%;
@@ -78,7 +86,7 @@
     font-weight: 700;
     
 }
-#next{
+.next{
     display: inline;
     float: right;
     margin: 2%;
@@ -89,4 +97,7 @@
     font-size: 16px;
     color:cyan;
     font-weight: 700;
+}
+span{
+    margin-right: 4px;
 }

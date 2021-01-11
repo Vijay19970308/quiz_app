@@ -2,13 +2,50 @@ import React, { useEffect, useState }  from 'react';
 import "./Report.css";
 import Tab from "./Tab";
 import QuizPage from "./QuizPage";
+import Score from "./Score";
 function Reports(props)
 {
    const [tabs,setTabs]= useState([]);
    const [questions,setQuestions]= useState([]);
-   const startTest = (type,number,level)=>{
+   const [Startin,setStartIn]=useState(false);
+   const [totalTime,setTotalTime]=useState(0);
+   const [QId,setQId]=useState("");
+   const [QScore,setScore]=useState(0);
+
+   const showScore = async (score)=>{
+      setScore(score);
+      setStartIn(true); 
+   };
+   const deleteTimer = async (Rid)=>{
+     try{
+      await fetch("http://localhost:9000/DeleteTimer",{
+            method:"DELETE",
+            headers:{
+               'Content-Type': 'application/json',
+               'Access-Control-Allow-Origin':'*',
+            },
+            body:JSON.stringify({
+            id:Rid,
+            })
+            }).then((r)=>{
+               if(r.ok){
+                   return r.json();
+                }
+            }).then((r)=>{ 
+               setStartIn(false); 
+            });
+         }catch(e)
+         {
+         console.log(e.message);
+         }
+         Rid="";
+   }
+   const startTest = async (type,number,level,id,score,time)=>{
       try{
-            fetch("http://localhost:9000/fetchQuestion",{
+            setQId(id);
+            setTotalTime(time);
+            setScore(score);
+            await fetch("http://localhost:9000/fetchQuestion",{
             method:"POST",
             headers:{
                'Content-Type': 'application/json',
@@ -20,12 +57,12 @@ function Reports(props)
             level:level,
             })
             }).then((r)=>{
-               if(r.ok)
-               { 
-                  return r.json();
-               }
+               if(r.ok){
+                   return r.json();
+                }
             }).then((r)=>{
-               setQuestions(r.result);  
+               setQuestions(r.result); 
+               setStartIn(true); 
             });
          }catch(e)
          {
@@ -41,9 +78,9 @@ function Reports(props)
        }catch(e){
          console.log(e.message);
       }
- },[]);
- const answer = ()=>{
-      fetch("http://localhost:9000/AllTimers",{
+ });
+ const answer = async ()=>{
+      await fetch("http://localhost:9000/AllTimers",{
       method:"POST",
       headers:{
          'Content-Type': 'application/json',
@@ -60,9 +97,12 @@ function Reports(props)
       }).then((r)=>{
       setTabs(r.result);  
       });}
-if(questions.length!=0)
+if(Startin)
 {
-   return (<QuizPage questions={questions}/>);
+   if(QScore===-1)
+    return (<QuizPage id={QId} questions={questions} score={QScore} time={totalTime}/>);
+   else
+    return <Score score={QScore}/>;
 }
 else{
  return (
@@ -83,7 +123,7 @@ else{
                  <tbody>
                   {        
                      tabs.map((item,idx)=>(
-                       <Tab  key={idx} index={idx+1} data={item} startTest={startTest}/>
+                       <Tab  key={idx} index={idx+1} data={item} deleteTimer={deleteTimer} showScore={showScore} startTest={startTest}/>
                      ))
                   }
                  </tbody>

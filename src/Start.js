@@ -24,7 +24,7 @@ function Start(props){
                   
                   <Route path="/Start"><NewQuiz username={props.username}/></Route>
                   <Route  path="/Reports"><Reports username={props.username}/></Route>
-                  <Route  path="/Profile"><Profile/></Route>
+                  <Route  path="/Profile"><Profile username={props.username}/></Route>
                   <Route exact path="/"><NewQuiz username={props.username}/></Route>
                 </Switch>
               </BrowserRouter>

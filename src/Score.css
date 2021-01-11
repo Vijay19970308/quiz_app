@@ -1,0 +1,23 @@
+#Page{
+   display:flex;
+   background-size: cover;
+   background-attachment: fixed;
+   background-image: url(./wp1875899.jpg);
+   height: 500px;
+   width: 100%;
+   align-items: center;
+   justify-content: center;
+   text-align: center;
+}
+#Score{
+ color: black;
+ text-align: center;
+ padding-top: 160px;
+ background-color: gold;
+ height: 250px;
+ width: 500px;
+ border-radius: 50%;
+}
+#Num{
+    margin-left: 20px;
+}

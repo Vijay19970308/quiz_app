@@ -1,4 +1,4 @@
-import React, { useState , useEffect } from 'react';
+import React, { useState} from 'react';
 import './Login.css';
 
 export default function SignUp(props){
@@ -32,7 +32,7 @@ export default function SignUp(props){
                         }} placeholder="Re-Enter your password"></input>
                   </div>
                   <div className="input">
-                  <input value={phone} onChange={(event)=>{setPhone(event.target.value)}} id="SignButton" className="inputTag" type="phone" placeholder="Enter your Phone Number"></input>
+                  <input value={phone} onChange={(event)=>{setPhone(event.target.value)}} id="SignButton" className="inputTag" type="number" min="1000000000" max="9999999999" placeholder="Enter your Phone Number"></input>
                   </div>
                   <p id="error">{Error}</p>
                   <button id="SignButton"  disabled={Disable} className="button" onClick={()=>{props.signUpHandler(username,password,phone)}} type="button" >Create Account</button>

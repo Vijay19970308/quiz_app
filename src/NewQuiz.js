@@ -67,7 +67,7 @@ function NewQuiz(props){
         setStartDate(string);
         const string1 = year+1+"-"+month+"-"+day+"T"+hour+":"+min;  
         setEndDate(string1);
-    });
+    },[]);
     return(
         <div className="Start">
             <div className="form">
